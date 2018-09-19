@@ -22,14 +22,14 @@ singularTypeReference : PrimitiveType | Identifier;
 collectionTypeReference: CollectionType '<' singularTypeReference '>';
 methodArgumentTypeReference: singularTypeReference | collectionTypeReference;
 
-namespace               : 'namespace' language namespaceName;
-namespaceImport         : 'import namespace' language namespaceName;
-classImport             : 'import class' language className;
+namespace               : 'namespace' language namespaceName EndOfLine;
+namespaceImport         : 'import namespace' language namespaceName EndOfLine;
+classImport             : 'import class' language className EndOfLine;
 language                : Identifier; // arbitrary programming languages are supported as long as generators support them
 namespaceName           : Identifier;
 className               : Identifier;
 
-serviceName       : 'serviceName' Identifier;
+serviceName       : 'serviceName' Identifier EndOfLine;
 
 resource           : resourceDoc? 'resource' Identifier resourceDefaultUrl? StartCurlyBracket methodDef+ EndCurlyBracket;
 resourceDefaultUrl : Literal;
@@ -63,6 +63,7 @@ IntConstant       : ('+' | '-')? [0-9]+;
 Literal           : ('"' (~'"')* '"') | ('\'' (~'\'')* '\'');
 LineDoc           : '##' (~'\n')*;
 EmbeddedDoc       : '#' (~'#')* '#';
+EndOfLine         : '\n';
 
 WS                : [ \t\r\n]+ -> skip ;
 COMMENT           : '/*' .*? '*/' -> channel(HIDDEN) ;
