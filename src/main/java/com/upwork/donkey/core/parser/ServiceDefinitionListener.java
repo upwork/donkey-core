@@ -19,7 +19,9 @@ import com.upwork.donkey.core.BadInputException;
 import com.upwork.donkey.core.ast.ExceptionDefinition;
 import com.upwork.donkey.core.ast.ServiceDefinition;
 import com.upwork.donkey.core.parser.antlr.DonkeyParser;
+import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class ServiceDefinitionListener extends BaseListener {
 
@@ -61,10 +63,16 @@ public class ServiceDefinitionListener extends BaseListener {
 
     @Override
     public void enterNamespaceImport(DonkeyParser.NamespaceImportContext ctx) {
-        String language = ctx.language().getText();
-        String namespaceName = ctx.namespaceName().getText();
+        TerminalNode language = ctx.language().Identifier();
+        TerminalNode namespaceName = ctx.namespaceName().Identifier();
 
-        serviceDefinition.setNamespaceImport(language, namespaceName);
+        if (!(language instanceof ErrorNode) && !(namespaceName instanceof ErrorNode)) {
+            serviceDefinition.setNamespaceImport(language.getText(), namespaceName.getText());
+        } else {
+            throw new BadInputException(
+                String.format("Error at '%s', line %s", ctx.getText(), ctx.getStart().getLine())
+            );
+        }
 
         System.out.printf("- namespace import %s for language %s\n", namespaceName, language);
 
@@ -72,10 +80,16 @@ public class ServiceDefinitionListener extends BaseListener {
 
     @Override
     public void enterClassImport(DonkeyParser.ClassImportContext ctx) {
-        String language = ctx.language().getText();
-        String className = ctx.className().getText();
+        TerminalNode language = ctx.language().Identifier();
+        TerminalNode className = ctx.className().Identifier();
 
-        serviceDefinition.addClassImport(language, className);
+        if (!(language instanceof ErrorNode) && !(className instanceof ErrorNode)) {
+            serviceDefinition.addClassImport(language.getText(), className.getText());
+        } else {
+            throw new BadInputException(
+                String.format("Error at '%s', line %s", ctx.getText(), ctx.getStart().getLine())
+            );
+        }
 
         System.out.printf("- class import %s for language %s\n", className, language);
     }
