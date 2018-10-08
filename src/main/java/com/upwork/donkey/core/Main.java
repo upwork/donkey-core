@@ -19,19 +19,30 @@ import com.upwork.donkey.core.ast.ServiceDefinition;
 import com.upwork.donkey.core.parser.ServiceDefinitionListener;
 import com.upwork.donkey.core.parser.antlr.DonkeyLexer;
 import com.upwork.donkey.core.parser.antlr.DonkeyParser;
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.apache.commons.cli.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 
 public class Main {
 
@@ -84,6 +95,19 @@ public class Main {
         DonkeyLexer lexer = new DonkeyLexer(new ANTLRFileStream(pathToIDL));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DonkeyParser parser = new DonkeyParser(tokens);
+        parser.addErrorListener(
+            new BaseErrorListener() {
+                @Override
+                public void syntaxError(final Recognizer<?, ?> recognizer, final Object offendingSymbol, final int line, final int charPositionInLine, final String msg, final RecognitionException e) {
+                    throw new ParseCancellationException(
+                        String.format(
+                            "Syntax error '%s' at line %d:%d",
+                            msg, line, charPositionInLine
+                        )
+                    );
+                }
+            }
+        );
 
         ParseTreeWalker walker = new ParseTreeWalker();
         ServiceDefinitionListener serviceDefinitionListener = new ServiceDefinitionListener();
