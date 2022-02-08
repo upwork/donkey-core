@@ -8,7 +8,7 @@ resource Users "/users" {
 
     GET "/{name}" User getUser(pathParam string name) throws UserNotFoundException;
 
-    POST void addUser(requestBody User user);
+    POST void addUser(requestBody User user, headerParam headerName(some.header.name) string someHeader);
 
     ## Search for users registered at a given address
     POST "/search-by-addresses" UserList searchUsersByAddress(requestBody Address address)

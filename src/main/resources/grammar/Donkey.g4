@@ -39,9 +39,10 @@ methodDef          : methodDoc? HTTPMethod methodUrl? methodReturnType methodSig
 methodUrl          : Literal;
 methodReturnType   : 'void' | singularTypeReference;
 methodSignature    : Identifier '(' methodArgument? (',' methodArgument)* ')';
-methodArgument     : HTTPMethodArgumentType defaultValue? methodArgumentTypeReference Identifier methodArgumentDoc?;
+methodArgument     : HTTPMethodArgumentType headerNameValue? defaultValue? methodArgumentTypeReference Identifier methodArgumentDoc?;
 defaultValue       : 'default' Literal; // default value only makes sense for optional query parameters
 methodThrows       : 'throws' Identifier (',' Identifier)*;
+headerNameValue    : 'headerName' '(' Identifier ')';
 
 resourceDoc        : LineDoc+;
 methodDoc          : LineDoc+;
@@ -52,7 +53,7 @@ methodArgumentDoc  : EmbeddedDoc;
 exception         : 'exception' Identifier IntConstant exceptionStatus?;
 exceptionStatus   : '('IntConstant')';
 
-HTTPMethodArgumentType: 'queryParam' | 'pathParam' | 'requestBody';
+HTTPMethodArgumentType: 'queryParam' | 'pathParam' | 'requestBody' | 'headerParam';
 HTTPMethod        : 'PUT' | 'GET' | 'POST' | 'PATCH' | 'DELETE';
 PrimitiveType          : 'bool' | 'byte' | 'i16' | 'i32' | 'i64' | 'double' | 'string';
 CollectionType     : 'list';

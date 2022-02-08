@@ -32,7 +32,8 @@ resource Users "/users" {
         queryParam default "ACTIVE" list<TUserStatus> userStatus # filters in users having any status from the list #,
         queryParam list<i32> userAge # filters in users having any age from the list #,
         queryParam default "0" i32 offset # offset #,
-        queryParam default "10" i32 limit # limit #
+        queryParam default "10" i32 limit # limit #,
+        headerParam headerName(auth) string authenticationHeader
     ) throws InvalidUserTypeException;
 
     ## Finds and returns one user
@@ -153,6 +154,7 @@ Each definition must include:
 * **pathParam** - required
 * **queryParam** - always optional
 * **requestBody**
+* **headerParam** - always optional (followed by headerName(someHeaderNameHere)). data type should always be string in this case
 
 ### Types
 

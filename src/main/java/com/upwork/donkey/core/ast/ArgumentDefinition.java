@@ -20,10 +20,12 @@ public class ArgumentDefinition {
     private TypeReference type;
     private String defaultValue;
     private String name;
+    private String headerName;
 
     private boolean queryParam;
     private boolean pathParam;
     private boolean requestBody;
+    private boolean headerParam;
 
     private String doc;
 
@@ -85,5 +87,21 @@ public class ArgumentDefinition {
 
     public void setDoc(String doc) {
         this.doc = doc;
+    }
+
+    public void setHeaderName(String headerName) {
+        this.headerName = headerName;
+    }
+
+    public String getHeaderName() {
+        return headerName;
+    }
+
+    public void setHeaderParam(boolean headerParam) {
+        this.headerParam = headerParam;
+    }
+
+    public boolean isHeaderParam() {
+        return headerParam;
     }
 }
