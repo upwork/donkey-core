@@ -1,4 +1,4 @@
-// Generated from Donkey.g4 by ANTLR 4.6
+// Generated from Donkey.g4 by ANTLR 4.9.2
 package com.upwork.donkey.core.parser.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -217,6 +217,16 @@ public interface DonkeyListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMethodThrows(DonkeyParser.MethodThrowsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DonkeyParser#headerNameValue}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeaderNameValue(DonkeyParser.HeaderNameValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DonkeyParser#headerNameValue}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeaderNameValue(DonkeyParser.HeaderNameValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DonkeyParser#resourceDoc}.
 	 * @param ctx the parse tree

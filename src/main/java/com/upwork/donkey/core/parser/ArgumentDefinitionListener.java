@@ -43,6 +43,10 @@ public class ArgumentDefinitionListener extends BaseListener {
             case "requestBody":
                 argumentDefinition.setRequestBody(true);
                 break;
+            case "headerParam":
+                argumentDefinition.setHeaderParam(true);
+                argumentDefinition.setHeaderName(ctx.headerNameValue().getText().substring(11, ctx.headerNameValue().getText().length() - 1));
+                break;
             default:
                 throw new BadInputException("Invalid argument kind " + kind);
         }

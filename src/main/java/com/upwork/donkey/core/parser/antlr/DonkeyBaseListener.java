@@ -1,4 +1,4 @@
-// Generated from Donkey.g4 by ANTLR 4.6
+// Generated from Donkey.g4 by ANTLR 4.9.2
 package com.upwork.donkey.core.parser.antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -263,6 +263,18 @@ public class DonkeyBaseListener implements DonkeyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMethodThrows(DonkeyParser.MethodThrowsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHeaderNameValue(DonkeyParser.HeaderNameValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHeaderNameValue(DonkeyParser.HeaderNameValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
