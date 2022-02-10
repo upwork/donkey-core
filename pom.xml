@@ -4,7 +4,7 @@
 
     <groupId>com.upwork.donkey</groupId>
     <artifactId>donkey-core</artifactId>
-    <version>0.4</version>
+    <version>0.5-SNAPSHOT</version>
 
     <name>Donkey</name>
     <description>DSL grammar and code generator for defining contracts of RESTful services</description>
@@ -48,7 +48,7 @@
         <connection>scm:git:git://github.com/upwork/donkey-core.git</connection>
         <developerConnection>scm:git:git@github.com:upwork/donkey-core.git</developerConnection>
         <url>http://github.com/upwork/donkey-core/tree/master</url>
-      <tag>donkey-core-0.4</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <dependencies>
